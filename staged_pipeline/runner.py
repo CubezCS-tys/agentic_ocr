@@ -465,38 +465,68 @@ class StagedPipelineRunner:
         print(f"[Page {page_num}] Starting processing...")
         print(f"{'='*60}")
         
-        # Save original page image at run level
-        original_png_path = run_dir / f"page_{page_num:03d}.png"
-        if not original_png_path.exists():
-            original_png_path.write_bytes(base64.b64decode(page_image_base64))
-        
-        # Create page output directory
-        page_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Run pipeline
-        result = self.process_page(
-            page_image_base64=page_image_base64,
-            output_dir=page_dir,
-        )
-        
-        # Save outputs
-        self._save_outputs(page_dir, result)
-        
-        # Validate with judge
-        print(f"[Page {page_num}] Validating...", end=" ")
-        verdict = judge.evaluate(
-            page_image_base64=page_image_base64,
-            html_content=result.final_html,
-            page_number=page_num
-        )
-        print(verdict)
-        
-        return {
-            "page_num": page_num,
-            "result": result,
-            "verdict": verdict,
-            "page_image_base64": page_image_base64,
-        }
+        try:
+            # Save original page image at run level
+            original_png_path = run_dir / f"page_{page_num:03d}.png"
+            if not original_png_path.exists():
+                original_png_path.write_bytes(base64.b64decode(page_image_base64))
+            
+            # Create page output directory
+            page_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Run pipeline
+            result = self.process_page(
+                page_image_base64=page_image_base64,
+                output_dir=page_dir,
+            )
+            
+            # Save outputs
+            self._save_outputs(page_dir, result)
+            
+            # Validate with judge
+            print(f"[Page {page_num}] Validating...", end=" ")
+            verdict = judge.evaluate(
+                page_image_base64=page_image_base64,
+                html_content=result.final_html,
+                page_number=page_num
+            )
+            print(verdict)
+            
+            return {
+                "page_num": page_num,
+                "result": result,
+                "verdict": verdict,
+                "page_image_base64": page_image_base64,
+            }
+            
+        except Exception as e:
+            print(f"[Page {page_num}] ✗ Error: {e}")
+            
+            # Return a failed result that triggers retry
+            from .judge import JudgeVerdict
+            
+            failed_result = PipelineResult(
+                success=False,
+                final_html=f"<!-- Error: {e} -->",
+                stages=[],
+                output_dir=page_dir,
+                total_duration_ms=0,
+            )
+            
+            failed_verdict = JudgeVerdict(
+                passed=False,
+                needs_rerun=True,
+                score=0.0,
+                feedback=f"Processing error: {e}",
+                issues={"error": [str(e)]},
+            )
+            
+            return {
+                "page_num": page_num,
+                "result": failed_result,
+                "verdict": failed_verdict,
+                "page_image_base64": page_image_base64,
+            }
 
     async def process_pdf_with_validation_async(
         self,
@@ -619,7 +649,8 @@ class StagedPipelineRunner:
                 verdicts[page_num] = verdict
                 print(f"  Verdict: {verdict}")
                 
-                if verdict.needs_rerun:
+                # Only schedule another retry if under the limit
+                if verdict.needs_rerun and retry_counts[page_num] < max_retries:
                     failed_pages.append(page_num)
         
         # Compile final stats
