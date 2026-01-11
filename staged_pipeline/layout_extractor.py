@@ -189,7 +189,7 @@ class LayoutExtractor:
         """
         Extract all data-ref elements from the skeleton.
         
-        Returns list of dicts with ref, type, and complexity.
+        Returns list of dicts with ref, type, bbox, and complexity.
         Order is determined by DOM position (visual order).
         """
         soup = BeautifulSoup(skeleton_html, 'html.parser')
@@ -202,6 +202,7 @@ class LayoutExtractor:
                 "type": element.get("data-type", "text"),
                 "reading_order": idx + 1,  # Assign based on DOM position
                 "complexity": element.get("data-complexity", "simple"),
+                "bbox": element.get("data-bbox"),  # Extract bounding box if present
             }
             references.append(ref_data)
         

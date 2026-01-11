@@ -27,52 +27,36 @@ CRITICAL RULES:
 - First character of response: `{`
 - Last character of response: `}`
 - Extract ALL references - do not skip any
+- Use the `bbox` coordinates to locate exactly which region to extract
 
 ## Your Task
 
 Given:
 1. A page image
-2. A list of reference IDs with their types (e.g., `col_right_1: text`, `eq_1: math`)
+2. A list of reference IDs with their types and bounding boxes
 
 Extract the actual content for each reference and return it as JSON.
 
-## Output Format
+## Output Format (SIMPLIFIED)
 
-Return a JSON object where each key is a reference ID and the value describes its content.
+Return a JSON object where each key is a reference ID. Use **Markdown with LaTeX delimiters** for content.
 
-### For Pure Text Blocks
+### For Text (with or without inline math)
+
+Use standard text. For inline math, use `$...$`. For display math within text, use `$$...$$`.
 
 ```json
 {
-  "title_1": {
+  "col_right_1": {
     "type": "text",
-    "content": "العنوان الفعلي هنا",
+    "content": "نعتبر الدالة $f(x) = x^2$ حيث $x > 0$ وهي دالة متصلة.",
     "direction": "rtl",
     "language": "ar"
   }
 }
 ```
 
-### For Text with Inline Math (Segmented)
-
-When text contains inline equations, use the segments format:
-
-```json
-{
-  "col_right_1": {
-    "type": "mixed",
-    "direction": "rtl",
-    "language": "ar",
-    "segments": [
-      {"type": "text", "content": "نعتبر الدالة "},
-      {"type": "math", "content": "f(x) = x^2", "display": "inline"},
-      {"type": "text", "content": " حيث "},
-      {"type": "math", "content": "x > 0", "display": "inline"},
-      {"type": "text", "content": " وهي دالة متصلة."}
-    ]
-  }
-}
-```
+**This replaces the complex "segments" format!** Just write the text naturally with `$...$` for math.
 
 ### For Display/Block Equations
 
@@ -87,7 +71,18 @@ When text contains inline equations, use the segments format:
 }
 ```
 
-If no equation number is visible, omit `equation_number`.
+If the equation has an Arabic/RTL label next to it, include it separately:
+
+```json
+{
+  "eq_1": {
+    "type": "math",
+    "content": "B^2 - 4AC = 0",
+    "display": "block",
+    "label": "معادلة الحرارة"
+  }
+}
+```
 
 ### For Tables
 
@@ -96,10 +91,10 @@ If no equation number is visible, omit `equation_number`.
   "table_1": {
     "type": "table",
     "direction": "rtl",
-    "headers": ["العمود الأول", "العمود الثاني", "العمود الثالث"],
+    "headers": ["العمود الأول", "العمود الثاني"],
     "rows": [
-      ["قيمة ١", "قيمة ٢", "قيمة ٣"],
-      ["قيمة ٤", "قيمة ٥", "قيمة ٦"]
+      ["قيمة ١", "قيمة ٢"],
+      ["قيمة ٣", "قيمة ٤"]
     ],
     "caption": "جدول ١: وصف الجدول"
   }
@@ -112,14 +107,8 @@ If no equation number is visible, omit `equation_number`.
 {
   "figure_1": {
     "type": "figure",
-    "description": "رسم بياني يوضح العلاقة بين المتغيرات x و y",
+    "description": "رسم بياني يوضح العلاقة بين المتغيرات",
     "position": "center"
-  },
-  "caption_1": {
-    "type": "text",
-    "content": "الشكل ١: العلاقة بين المتغيرين",
-    "direction": "rtl",
-    "language": "ar"
   }
 }
 ```
@@ -134,80 +123,47 @@ For mathematical content, use proper LaTeX syntax:
 - Superscripts: `x^{2}`, `e^{-x}`
 - Square roots: `\sqrt{x}`, `\sqrt[n]{x}`
 - Summations: `\sum_{i=1}^{n} x_i`
-- Products: `\prod_{i=1}^{n}`
 - Integrals: `\int_{a}^{b} f(x) \, dx`
-- Greek letters: `\alpha`, `\beta`, `\gamma`, `\theta`, `\lambda`, `\pi`
-- Limits: `\lim_{x \to \infty}`
+- Greek letters: `\alpha`, `\beta`, `\gamma`, `\theta`
 - Partial derivatives: `\frac{\partial f}{\partial x}`
-- Matrices: `\begin{pmatrix} a & b \\ c & d \end{pmatrix}`
-- Aligned equations: `\begin{aligned} ... \end{aligned}`
 
 ### Important
 - Escape backslashes in JSON: `\\frac` not `\frac`
-- Use `\,` for proper spacing in integrals: `\int f(x) \, dx`
+- Use `\,` for proper spacing in integrals
 
 ### CRITICAL: Arabic/RTL Text in Equations
-- **NEVER put Arabic text inside LaTeX** - it will render backwards!
-- **WRONG**: `B^2 - 4AC = 0 \text{ومن أمثلتها معادلة الحرارة}`
-- **CORRECT**: Extract the equation and Arabic label separately
-
-If an equation has an Arabic label/description next to it, return them as separate parts:
-```json
-{
-  "eq_1": {
-    "type": "math",
-    "content": "B^2 - 4AC = 0",
-    "display": "block",
-    "label": "ومن أمثلتها معادلة الحرارة"
-  }
-}
-```
-
-The `label` field will be rendered as RTL text next to the equation.
+- **NEVER put Arabic text inside `$...$`** - it will render backwards!
+- **WRONG**: `$B^2 - 4AC = 0 \text{معادلة}$`
+- **CORRECT**: `المعادلة $B^2 - 4AC = 0$ هي معادلة تربيعية`
 
 ## Text Extraction Rules
 
-1. **Accuracy**: Extract text EXACTLY as written, preserving:
-   - All diacritical marks (تشكيل) in Arabic
-   - Punctuation marks
-   - Numerical values
-   
-2. **Direction**: 
-   - `"rtl"` for Arabic, Hebrew, Persian
-   - `"ltr"` for English, French, Latin-based
-   - `"auto"` for mixed content within a block
-
-3. **Language**:
-   - `"ar"` for Arabic
-   - `"en"` for English
-   - `"mixed"` for blocks with both
-
-4. **Footnote markers**: Include footnote reference numbers as they appear
+1. **Accuracy**: Extract text EXACTLY as written
+2. **Direction**: `"rtl"` for Arabic, `"ltr"` for English
+3. **Language**: `"ar"` for Arabic, `"en"` for English, `"mixed"` for both
+4. **Use bbox**: The bounding box tells you exactly WHERE on the page to look
 
 ## Confidence Indicator
 
-If you're uncertain about any extraction, add a confidence field:
+If uncertain about any extraction:
 
 ```json
 {
   "eq_3": {
     "type": "math",
     "content": "...",
-    "display": "block",
     "confidence": 0.7,
-    "note": "Complex nested fractions, may need verification"
+    "note": "Complex nested fractions"
   }
 }
 ```
 
 ## What You Must NOT Do
 
-❌ Do NOT output any thinking, reasoning, or chain-of-thought
+❌ Do NOT use the old "segments" format - just write content naturally with `$...$`
+❌ Do NOT output any thinking or reasoning
 ❌ Do NOT create HTML structure
-❌ Do NOT add CSS or styling
-❌ Do NOT change the order or structure of content
-❌ Do NOT translate or interpret content
-❌ Do NOT skip any reference - provide content for ALL refs in the input list
+❌ Do NOT skip any reference
 ❌ Do NOT include markdown code blocks (no ```)
 ❌ Do NOT write anything before or after the JSON object
 
@@ -222,22 +178,10 @@ If you're uncertain about any extraction, add a confidence field:
 First character: `{`
 Last character: `}`
 
-FORBIDDEN in your response:
-- ❌ Any text before `{`
-- ❌ Any text after `}`  
-- ❌ Markdown code blocks (```json or ```)
-- ❌ Phrases like "Here is the JSON", "Output:", "Result:"
-- ❌ Comments or explanations
-- ❌ Your reasoning or thought process
-
 CORRECT:
 {"title_1": {"type": "text", "content": "العنوان", "direction": "rtl", "language": "ar"}}
 
 INCORRECT (causes FAILURE):
-Here is the extracted content:
-```json
+\`\`\`json
 {"title_1": {...}}
-```
-
-INCORRECT (causes FAILURE):
-Let me extract the text. {"title_1": {...}}
+\`\`\`

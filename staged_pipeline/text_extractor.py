@@ -156,11 +156,13 @@ class TextExtractor:
         raise Exception(f"Text extraction failed after {max_retries} attempts: {last_error}")
     
     def _format_reference_list(self, references: list[dict]) -> str:
-        """Format references for the prompt."""
+        """Format references for the prompt, including spatial context."""
         lines = []
         for ref in references:
             complexity = f" [complex]" if ref.get('complexity') == 'complex' else ""
-            lines.append(f"- `{ref['ref']}`: type={ref['type']}{complexity}")
+            bbox = ref.get('bbox')
+            location = f" at bbox={bbox}" if bbox else ""
+            lines.append(f"- `{ref['ref']}`: type={ref['type']}{complexity}{location}")
         return "\n".join(lines)
     
     def _parse_response(self, response_text: str) -> dict:

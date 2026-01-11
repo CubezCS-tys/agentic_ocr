@@ -410,7 +410,12 @@ class Assembler:
             self._inject_text(element, data)
     
     def _inject_text(self, element, data: dict):
-        """Inject plain text content."""
+        """
+        Inject text content. 
+        
+        Supports new Markdown format where inline math uses $...$ delimiters directly.
+        The content is rendered as-is since KaTeX/MathJax will handle the math.
+        """
         content = data.get("content", "")
         direction = data.get("direction")
         language = data.get("language")
@@ -424,6 +429,8 @@ class Assembler:
             element["class"] = element.get("class", []) + ["extraction-error"]
             return
         
+        # Content now uses Markdown-style $...$ for inline math
+        # Just inject as-is - KaTeX/MathJax will render the math
         element.string = content
         
         if direction:
@@ -432,7 +439,12 @@ class Assembler:
             element["lang"] = language
     
     def _inject_mixed(self, soup, element, data: dict):
-        """Inject mixed content (text with inline math)."""
+        """
+        Inject mixed content (legacy format with segments).
+        
+        Note: New format uses $...$ directly in text content. This method
+        is kept for backward compatibility with older extraction results.
+        """
         segments = data.get("segments", [])
         direction = data.get("direction")
         language = data.get("language")

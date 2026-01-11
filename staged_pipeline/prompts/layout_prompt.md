@@ -62,6 +62,20 @@ Create an HTML skeleton that captures:
 Each content area gets:
 - `data-ref`: Unique identifier (e.g., `col_right_1`, `eq_1`)
 - `data-type`: Content type (`text`, `math`, `table`, `figure`)
+- `data-bbox`: Bounding box coordinates (REQUIRED for every element)
+
+## Bounding Box Format (CRITICAL)
+
+You MUST include `data-bbox` for EVERY element with a `data-ref`.
+
+Format: `ymin,xmin,ymax,xmax` where coordinates are normalized 0-1000.
+- (0,0) is top-left of the page
+- (1000,1000) is bottom-right of the page
+
+The bounding box should tightly enclose the entire visual region of that content block.
+
+Example: A paragraph in the top-right of the page might have:
+`data-bbox="50,500,200,950"` (y: 50-200, x: 500-950)
 
 ## Naming Convention for data-ref
 
@@ -101,23 +115,23 @@ For two-column documents:
 </div>
 ```
 
-### CORRECT - Minimal Segments:
+### CORRECT - Minimal Segments with Bounding Boxes:
 ```html
-<!-- DO THIS - one block per continuous text area -->
+<!-- DO THIS - one block per continuous text area, with bbox -->
 <div class="column column-right">
-  <div data-ref="col_right_1" data-type="text"></div>
+  <div data-ref="col_right_1" data-type="text" data-bbox="100,520,450,950"></div>
 </div>
 <div class="column column-left">
-  <div data-ref="col_left_1" data-type="text"></div>
+  <div data-ref="col_left_1" data-type="text" data-bbox="100,50,450,480"></div>
 </div>
 ```
 
 ### With Section Heading Breaking the Column:
 ```html
 <div class="column column-right">
-  <div data-ref="col_right_1" data-type="text"></div>
-  <h2 data-ref="section_1" data-type="text"></h2>
-  <div data-ref="col_right_2" data-type="text"></div>
+  <div data-ref="col_right_1" data-type="text" data-bbox="100,520,200,950"></div>
+  <h2 data-ref="section_1" data-type="text" data-bbox="210,520,240,950"></h2>
+  <div data-ref="col_right_2" data-type="text" data-bbox="250,520,450,950"></div>
 </div>
 ```
 
@@ -126,21 +140,21 @@ For two-column documents:
 ```html
 <div class="page" dir="rtl" lang="ar">
   <header class="page-header">
-    <div class="header-info" data-ref="header_1" data-type="text"></div>
+    <div class="header-info" data-ref="header_1" data-type="text" data-bbox="20,100,50,900"></div>
   </header>
 
   <main class="two-column-layout">
     <div class="column column-right">
-      <div class="paragraph" data-ref="col_right_1" data-type="text"></div>
+      <div class="paragraph" data-ref="col_right_1" data-type="text" data-bbox="80,520,800,950"></div>
     </div>
     <div class="column column-left">
-      <div class="paragraph" data-ref="col_left_1" data-type="text"></div>
+      <div class="paragraph" data-ref="col_left_1" data-type="text" data-bbox="80,50,800,480"></div>
     </div>
   </main>
 
   <footer class="page-footer">
-    <div class="footer-info" data-ref="footer_1" data-type="text"></div>
-    <div class="page-number" data-ref="page_num" data-type="text"></div>
+    <div class="footer-info" data-ref="footer_1" data-type="text" data-bbox="920,100,960,450"></div>
+    <div class="page-number" data-ref="page_num" data-type="text" data-bbox="920,450,960,550"></div>
   </footer>
 </div>
 ```
