@@ -577,7 +577,7 @@ def async_convert(
         "--concurrent", "-c",
         help="Maximum number of pages to process in parallel",
         min=1,
-        max=10,
+        max=40,
     ),
     no_math_refinement: bool = typer.Option(
         False,
