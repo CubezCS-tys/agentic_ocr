@@ -260,7 +260,7 @@ class StagedPipelineRunner:
             })
         
         # Process pages concurrently using ThreadPoolExecutor
-        loop = asyncio.get_event_loop()
+        loop = asyncio.get_running_loop()
         results_dict = {}
         
         with ThreadPoolExecutor(max_workers=max_concurrent) as executor:
@@ -597,7 +597,7 @@ class StagedPipelineRunner:
         # PHASE 1: Process all pages concurrently
         print(f"\n[Phase 1] Processing {len(jobs)} pages in parallel...")
         
-        loop = asyncio.get_event_loop()
+        loop = asyncio.get_running_loop()
         
         with ThreadPoolExecutor(max_workers=max_concurrent) as executor:
             futures = [
