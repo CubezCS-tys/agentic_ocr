@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Recreation</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Light gray to distinguish page from background */
+        }
+
+        .page {
+            width: 21cm; /* A4 width */
+            min-height: 29.7cm; /* A4 height */
+            background-color: #FFFFFF;
+            margin: 20px auto; /* Center the page on the screen */
+            padding: 2.5cm 2.5cm 2.5cm 2.5cm; /* Top, Right, Bottom, Left margins as per typical A4 doc */
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            box-sizing: border-box; /* Include padding in width/height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Pushes footer to the bottom */
+        }
+
+        /* --- Fonts (USE EXACTLY) --- */
+        .title, h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 24px;
+            color: #000000;
+        }
+
+        h2, h3, .section-header {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 18px;
+            color: #000000;
+        }
+
+        body, p {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #000000;
+        }
+
+        /* General element spacing and alignment */
+        p {
+            margin-top: 0;
+            margin-bottom: 1em; /* Standard paragraph spacing */
+            text-align: justify;
+        }
+
+        /* Header box and Footer box styling */
+        .header-box, .footer-box {
+            background-color: #d8edf4; /* Light blue */
+            border: 1px solid #aedde6; /* Slightly darker blue border */
+            border-radius: 8px;
+            padding: 8px 15px;
+            box-sizing: border-box;
+            color: #000000;
+        }
+
+        .header-box {
+            text-align: center;
+            margin-bottom: 2em; /* Space after header */
+        }
+
+        .header-text {
+            font-size: 18px;
+            font-weight: bold;
+            font-family: Georgia, 'Times New Roman', serif; /* Ensure font consistency */
+        }
+
+        /* Section headings (1-, 2-, 3-) */
+        .section-heading {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 1.5em; /* Space before section */
+            margin-bottom: 0.5em; /* Space after section heading */
+            text-align: right;
+            line-height: 1.2;
+            font-family: Georgia, 'Times New Roman', serif; /* Ensure font consistency */
+        }
+
+        /* Mathematical equation styling */
+        .equation-display {
+            margin: 1.5em 0; /* Vertical spacing for block equations */
+            text-align: center; /* MathJax typically centers display equations */
+        }
+        
+        .math-statement {
+            text-align: right;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            font-size: 12px;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        /* Footer specific styling */
+        .footer-box {
+            margin-top: auto; /* Push footer to the bottom of the page content area */
+            margin-bottom: 0; /* No margin below the footer box */
+            display: flex; /* Use flex to align items horizontally */
+            justify-content: space-between; /* Distribute items (left, center, right) */
+            align-items: center;
+            font-size: 10px; /* Smaller font for general footer text */
+        }
+
+        .footer-center-content {
+            display: flex;
+            align-items: center;
+            flex-grow: 1; /* Allows center content to take up available space */
+            margin: 0 15px; /* Space between side texts and center lines/number */
+        }
+
+        .footer-line {
+            height: 1px;
+            background-color: #aedde6; /* Color of the border */
+            flex-grow: 1; /* Line takes up available space */
+            min-width: 20px; /* Ensure line is visible even if space is tight */
+        }
+
+        .footer-page-number {
+            font-weight: bold; /* Page number is bold */
+            margin: 0 10px; /* Space between line and number */
+            font-family: Georgia, 'Times New Roman', serif; /* Ensure font consistency */
+            font-size: 12px; /* Page number looks slightly larger */
+        }
+
+        .footer-text {
+            white-space: nowrap; /* Prevent text from wrapping */
+            font-family: Georgia, 'Times New Roman', serif;
+            color: #000000;
+        }
+
+        .footer-left-text, .footer-right-text {
+            padding: 0 5px; /* Small padding so text doesn't touch the very edge of the footer box */
+        }
+    </style>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['\\(', '\\)']],
+            displayMath: [['$$', '$$']],
+            processEscapes: true
+          },
+          svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body dir="rtl">
+    <div class="page">
+        <div>
+            <div class="header-box">
+                <span class="header-text">المعادلات التفاضلية الجزئية وتطبيقاتها</span>
+            </div>
+
+            <p>
+                هناك عدة طرق مطبقة علميا وأعظمها أهمية تلك الطرق التي بإتباعها تتحول
+                المعادلة التفاضلية الجزئية إلى معادلات تفاضلية اعتيادية ومنها.
+            </p>
+
+            <div class="section-heading">1- فصل المتغيرات:</div>
+            <p>
+                بهذه الطريقة يتم تحويل المعادلة التفاضلية الجزئية ذات \( n \) المتغيرات المستقلة إلى \( n \)
+                من المعادلات التفاضلية الاعتيادية. ففي هذه الطريقة يكون من المفروض إمكانية
+                التعبير عن الحل كحاصل ضرب دوال مجهولة كل منها يعتمد على متغير واحد فقط
+                من المتغيرات. ونجاح هذه الطريقة يعتمد على إمكانية كتابة المعادلة الناتجة بحيث
+                يعتمد أحد الطرفين على متغير واحد بينما يعتمد الطرف الآخر على باقي المتغيرات
+                وبذلك يجب أن يكون كل طرف مساويا مقدار ثابتا وبتكرار هذه العملية يمكن تتعين
+                الدوال المجهولة.
+            </p>
+            <p>
+                وتستخدم هذه الطريقة عادة متسلسلات فوريبير وتكاملات فوريبير ومتسلسلات لجندر.
+            </p>
+
+            <div class="section-heading">2- سلاسل فوريير:</div>
+            <p>
+                إن أهمية سلاسل فوريبير في نظرية المعادلات التفاضلية الجزئية هي أن الدوال
+                الدورية \( f(X) \) المعرفة على \( (-\infty, \infty) \) أو الدوال المعرفة على فترة منتهية يمكن
+                تمثيلها بسلسلة لانهائية من الجيوب وجيوب التمام وبهذه الطريقة يمكن تجزئة المسائل
+                إلى أخرى مبسطة و يتعين بالصيغة:
+            </p>
+
+            <div class="equation-display">
+                $$
+                f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos n\pi x + b_n \sin(n\pi x)
+                $$
+            </div>
+
+            <p class="math-statement">حيث أن:</p>
+
+            <div class="equation-display">
+                $$
+                a_n = \frac{1}{L} \int_{-L}^{L} f(x) \cos \frac{n}{L} x \, dx
+                $$
+            </div>
+
+            <div class="equation-display">
+                $$
+                b_n = \frac{1}{L} \int_{-L}^{L} f(x) \sin \frac{n}{L} x \, dx
+                $$
+            </div>
+
+            <div class="section-heading">3- دوال لجندر التفاضلية:</div>
+            <p>
+                تنشأ دوال لجندر كحلول للمعادلة التفاضلية:
+            </p>
+
+            <div class="equation-display">
+                $$
+                (1 - x^2)y'' - 2xy' + n(n + 1)y = 0
+                $$
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <span class="footer-text footer-left-text">العدد (22) سبتمبر -2018</span>
+            <div class="footer-center-content">
+                <span class="footer-line"></span>
+                <span class="footer-page-number">138</span>
+                <span class="footer-line"></span>
+            </div>
+            <span class="footer-text footer-right-text">مجلة المنتدى الجامعي</span>
+        </div>
+    </div>
+</body>
+</html>

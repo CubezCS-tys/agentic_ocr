@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المعادلات التفاضلية الجزئية وتطبيقاتها</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-blue: #dbebf5;
+            --border-color: #8faab9;
+        }
+        body {
+            font-family: 'Amiri', serif;
+            background-color: #fff;
+            color: #000;
+            line-height: 1.8;
+            margin: 0;
+            padding: 40px;
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 20px;
+        }
+        
+        /* Header & Footer Styles */
+        .banner {
+            background-color: var(--bg-blue);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 8px 15px;
+            margin-bottom: 25px;
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.15);
+            text-align: center;
+            font-weight: bold;
+        }
+        .header-title {
+            font-size: 1.1em;
+            margin: 0;
+        }
+        
+        /* Content Styles */
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        
+        h2 {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        /* Latin text inside Arabic */
+        .latin {
+            font-family: 'Times New Roman', serif;
+            direction: ltr;
+            unicode-bidi: embed;
+        }
+
+        /* Math Styles */
+        .math-display {
+            margin: 15px 0;
+            direction: ltr;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        
+        .math-label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        /* Footer Specifics */
+        .footer {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            padding: 5px 20px;
+        }
+        .footer span {
+            padding: 0 15px;
+        }
+        .footer-center {
+            font-weight: bold;
+            border-right: 1px solid #666;
+            border-left: 1px solid #666;
+            padding: 0 40px !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="banner">
+        <div class="header-title">المعادلات التفاضلية الجزئية وتطبيقاتها</div>
+    </div>
+
+    <!-- Introduction -->
+    <p>
+        هناك عدة طرق مطبقة علميا وأعظمها أهمية تلك الطرق التي بأتباعها تتحول المعادلة التفاضلية الجزئية إلى معادلات تفاضلية اعتيادية ومنها.
+    </p>
+
+    <!-- Section 1 -->
+    <h2>1 – فصل المتغيرات:</h2>
+    <p>
+        بهذه الطريقة يتم تحويل المعادلة التفاضلية الجزئية ذات <span class="latin">n</span> المتغيرات المستقلة إلى <span class="latin">n</span> من المعادلات التفاضلية الاعتيادية. ففي هذه الطريقة يكون من المفروض إمكانية التعبير عن الحل كحاصل ضرب دوال مجهولة كل منها يعتمد على متغير واحد فقط من المتغيرات. ونجاح هذه الطريقة يعتمد على إمكانية كتابة المعادلة الناتجة بحيث يعتمد أحد الطرفين على متغير واحد بينما يعتمد الطرف الآخر على باقي المتغيرات وبذلك يجب أن يكون كل طرف مساويا مقدار ثابتا وبتكرار هذه العملية يمكن تتعين الدوال المجهولة.
+    </p>
+    <p>
+        وتستخدم هذه الطريقة عادة متسلسلات فوريير وتكاملات فوريير ومتسلسلات لجندر.
+    </p>
+
+    <!-- Section 2 -->
+    <h2>2- سلاسل فوريير:</h2>
+    <p>
+        إن أهمية سلاسل فوريير في نظرية المعادلات التفاضلية الجزئية هي أن الدوال الدورية <span class="latin">f(x)</span> المعرفة على <span class="latin" dir="ltr">(-∞, ∞)</span> أو الدوال المعرفة على فترة منتهية يمكن تمثيلها بسلسلة لانهاية من الجيوب و جيوب التمام و بهذه الطريقة يمكن تجزئة المسائل إلى أخرى مبسطة و يتعين بالصيغة....
+    </p>
+
+    <div class="math-display">
+        $$ f(x) = \frac{a0}{2} + \sum_{n=1}^{\infty} a_n \cos n\pi x + b_n \sin(n\pi x) $$
+    </div>
+
+    <p class="math-label">حيث أن:</p>
+
+    <div class="math-display">
+        $$ a_n = \frac{1}{L} \int_{-L}^{L} f(x) \cos \frac{n}{L} x \, dx $$
+    </div>
+    <div class="math-display">
+        $$ b_n = \frac{1}{L} \int_{-L}^{L} f(x) \sin \frac{n}{L} x \, dx $$
+    </div>
+
+    <!-- Section 3 -->
+    <h2>3- دوال لجندر التفاضلية:</h2>
+    <p>
+        تنشا دوال لجندر كحلول للمعادلة التفاضلية:
+    </p>
+    <div class="math-display">
+        $$ (1 - x^2)y'' - 2xy' + n(n+1)y = 0 $$
+    </div>
+
+    <!-- Footer -->
+    <div class="banner footer">
+        <span>- مجلة المنتدى الجامعي -</span>
+        <span class="footer-center">138</span>
+        <span>- العدد (22) سبتمبر 2018-</span>
+    </div>
+
+</body>
+</html>

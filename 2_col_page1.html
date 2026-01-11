@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Digitization</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
+        html {
+            box-sizing: border-box;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            font-family: 'Amiri', serif;
+            color: #000;
+            line-height: 1.8;
+            display: flex;
+            justify-content: center;
+        }
+
+        .page-container {
+            width: 210mm; /* A4 width */
+            min-height: 297mm; /* A4 height */
+            background-color: #fff;
+            padding: 25mm 20mm;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: flex-end; /* Puts content on the left in RTL? No, flex-end is left in RTL. Wait. */
+            /* In RTL: flex-start is Right, flex-end is Left. */
+            /* The name is on the top LEFT of the page. */
+            justify-content: flex-end; 
+            margin-bottom: 8px;
+        }
+
+        .author-name {
+            font-size: 14px;
+        }
+
+        .header-line {
+            border-bottom: 1px solid #000;
+            width: 100%;
+            height: 1px;
+        }
+
+        /* Main Content - Two Columns */
+        .main-content {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            flex: 1;
+            align-items: stretch;
+            margin-bottom: 10px;
+        }
+
+        .column {
+            flex: 1;
+            text-align: justify;
+            font-size: 17px; /* Matched to visual density */
+            line-height: 1.9;
+        }
+
+        .separator {
+            width: 1px;
+            background-color: #000;
+            margin: 5px 0; /* Slight offset from top/bottom of text area */
+        }
+
+        /* Typography */
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 10px 0;
+            line-height: 1.4;
+        }
+
+        p {
+            margin: 0 0 10px 0;
+            text-align: justify;
+        }
+
+        /* Latin text handling */
+        .latin {
+            font-family: "Times New Roman", serif;
+            direction: ltr;
+            unicode-bidi: embed;
+            display: inline-block;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #000;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            align-items: center;
+        }
+
+        /* In RTL flex container:
+           First child is on the Right.
+           Last child is on the Left. 
+        */
+        .footer-info {
+            /* Right side content */
+        }
+        
+        .page-number {
+            /* Left side content */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        
+        <header>
+            <div class="header-content">
+                <span class="author-name">د. محمد مصلح الثمالي</span>
+            </div>
+            <div class="header-line"></div>
+        </header>
+
+        <div class="main-content">
+            
+            <!-- Right Column (First in DOM for RTL) -->
+            <div class="column">
+                <p>
+                    لذا فقد اقتصرت الدراسة على الجانب النظري ، مع استعمال انتقائي للبيانات المتوفرة حول تركز السكان وموارد المياه هدفه تسليط الضوء على المشكلات التي تعترض وضع النموذج موضع التطبيق.
+                </p>
+                <p>
+                    ويتكون البحث من أربعة أجزاء رئيسة إضافة إلى المقدمة والخاتمة. فبعد استعراض الدراسات النظرية المتعلقة بأحجام المدن ، يتم تقديم نموذج الدراسة. بعد ذلك نقوم بتتبع العلاقة بين المدينة السعودية وظهيرها المائي قديماً وحديثاً ، مبينين أسباب خروج أحجام المدن على إمكاناتها المائية المتجددة وتزايد اعتمادها على المصادر غير التقليدية. وهذا يقودنا إلى تقديم رؤيتنا حول إعادة هذه العلاقة من خلال فكرة حصاد المياه من الظهير المائي للمدينة ، وإعادة توزيع السكان.
+                </p>
+
+                <h2>أولاً: الخلفية النظرية للموضوع</h2>
+                <p>
+                    العلاقة بين السكان و الموارد الطبيعية موثقة توثيقاً جيداً في البحث العلمي في تخصصات مختلفة: انظر على سبيل المثال <span class="latin">Colombo (1996, )</span>. كذلك فإن التغير في توزيع السكان نتيجة الهجرة وعمليات التحضر، و التغير في توزيع الموارد نتيجة التقدم التكنولوجي أو الاكتشافات أو الاختراعات أو نفاذ الموارد الطبيعي، كان ولازال موضوعاً للدراسة والتحليل في العلوم الاجتماعية و الاقتصادية. ويعتبر الماء أهم موارد الأمة الطبيعية ، ليس كسلعة وسيطة في الإنتاج الزراعي و الصناعي و الترفيهي فحسب، بل أيضاً
+                </p>
+            </div>
+
+            <!-- Vertical Separator -->
+            <div class="separator"></div>
+
+            <!-- Left Column -->
+            <div class="column">
+                <p>
+                    كسلعة نهائية يستهلكها السكان مباشرة. و الماء يظهر أثناء الدورة الهيدرولوجية كسلعة صالحة للاستهلاك ، في صورة بحيرات وأنهار ومياه جوفية. ونظراً لأن الماء وجد أولاً، فقد استقر الإنسان حيثما وجد الماء. ليس هذا فحسب بل إن الماء مقرر لكثافة السكان على الحيز الجغرافي في المجتمعات الزراعية والرعوية. وحتى المدن والبلدان التي نشأت لخدمة ظهيرها الزراعي، اختارت مواقعها حيث تتوفر مياه كافية على ضفاف الأنهار أو على شواطئ البحيرات أو في المراوح الفيضية للأودية.
+                </p>
+                <p>
+                    وكما تعلمنا في جغرافية العمران ، فإن المدن والبلدان في حقبة ما قبل الثورة الصناعية لم تكن بحاجة إلى النمو زيادة على حاجات ظهيرها الزراعي الذي وجدت من أجله والذي يتأثر ، ضمن ما يتأثر به من عوامل أخرى كالتربة والأسواق ، بكميات المياه المتاحة له. فالماء شريان الحياة، وهو الذي كان ولا يزال العامل الأهم في توزيع السكان وكثافتهم ومواقع المدن وأحجامها في المجتمعات التي تعتمد على إنتاج السلع الأولية. صحيح أن طرق المواصلات والعوامل التاريخية والسياسية تؤثر على مواقع المدن وأحجامها. لكن هذه العوامل لاحقة ومترتبة على وجود السكان أصلاً في أقاليم منتجة تحتاج إلى التبادل بجميع أنواعه وإلى الإدارة والحكم و تنظيم العلاقات مع العالم الخارجي.
+                </p>
+                <p>
+                    ومع ظهور الثورة الصناعية والزراعية في الأرياف اختل الميزان البيئي الذي كان يربط أعداد السكان وأماكن وجودهم
+                </p>
+            </div>
+
+        </div>
+
+        <footer>
+            <div class="footer-info">المجلد الخامس عشر – العدد الأول – ذو القعدة ١٤٢٣هـ – يناير ٢٠٠٣م</div>
+            <div class="page-number">١٨١</div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

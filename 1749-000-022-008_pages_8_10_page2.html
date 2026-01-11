@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المعادلات التفاضلية الجزئية وتطبيقاتها</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Amiri', serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            color: #000;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+        .page-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px 50px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            position: relative;
+            min-height: 1000px;
+        }
+        .header-box, .footer-box {
+            background: linear-gradient(to bottom, #eef8fc 0%, #dbebf5 100%);
+            border: 2px solid #9ebcc9;
+            border-radius: 15px;
+            padding: 8px 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 30px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+        }
+        .header-box {
+            font-size: 1.1em;
+        }
+        h3 {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        .math-display {
+            margin: 20px 0;
+            direction: ltr;
+        }
+        .center-text {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        .footer-box {
+            margin-top: 50px;
+            margin-bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            padding: 5px 20px;
+        }
+        .footer-center {
+            flex-grow: 1;
+            text-align: center;
+        }
+        /* Custom adjustments for visual identity */
+        .bold {
+            font-weight: bold;
+        }
+        /* Ensure MathJax fonts match nicely */
+        mjx-container {
+            font-size: 110% !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <!-- Header -->
+    <div class="header-box">
+        المعادلات التفاضلية الجزئية وتطبيقاتها
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <h3>8- التحويلات التكاملية:</h3>
+        <p>
+            حيث تحول المعادلة التفاضلية الجزئية ذات $n$ من المتغيرات المستقلة الى معادله جزئيه ذات $n-1$ من المتغيرات المستقلة، وبالتالي تتحول المعادلة التفاضلية الجزئية ذات المتغيرين إلى معادله تفاضلية اعتيادية، وملخص القول ان التحويلات التكاملية تغير التفاضل الى ضرب وعليه تتحول المشتقات الجزئية الى مقادير جبرية، ويعرف التحويل التكاملي بانه تحويل يقرن لكل دالة $f(t)$ داله جديدة $F(s)$ بموجب صيغة معينه مثل:
+        </p>
+
+        <div class="math-display">
+            $$ F(s) = \int_{A}^{B} K(s \text{،} t) f(t) dt $$
+        </div>
+
+        <p>ومن هذه التحويلات:</p>
+
+        <h3>1- تحويل فوريير</h3>
+        <p>
+            في متسلسلة فوريير إذا كانت $L \to \infty$ في هذه الحالة تتحول متسلسلة فوريير إلى تحويلات فوريير حيث إن تحويلات فوريير هي:
+        </p>
+
+        <div class="math-display">
+            $$ F(\varepsilon) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} f(x) e^{i\varepsilon x} dx $$
+        </div>
+
+        <p>
+            وتكمن أهمية تحويل فوريير في تحويل التفاضل إلى ضرب وعليه تتحول المعادلة التفاضلية الى معادلة جبرية.
+        </p>
+
+        <h3>مثال:</h3>
+        <p class="center-text" style="text-align: right;">
+            اوجد جواب المعادلة التفاضلية التالية مستعينا بتحويلات فوريير
+        </p>
+
+        <div class="math-display">
+            $$ \frac{\partial u}{\partial t} = K \frac{\partial^2 u}{\partial x^2} $$
+        </div>
+
+        <p class="center-text">الشرائط الحدية</p>
+
+        <div class="math-display">
+            $$ |u(x \text{،} t)| < m \quad \text{،} \quad u(x \text{،} u) = f(x) $$
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-box">
+        <span>- مجلة المنتدى الجامعي -</span>
+        <span class="footer-center">—— 140 ——</span>
+        <span>-العدد (22) سبتمبر 2018-</span>
+    </div>
+</div>
+
+</body>
+</html>

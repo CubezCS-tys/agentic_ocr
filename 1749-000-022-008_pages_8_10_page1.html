@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المعادلات التفاضلية الجزئية وتطبيقاتها</title>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['$$', '$$']],
+        processEscapes: true
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+            background-color: #ffffff;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .header-banner {
+            background-color: #dbeff7;
+            border: 2px solid #8bbcd6;
+            border-radius: 15px;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        p {
+            margin-bottom: 10px;
+            text-align: justify;
+            font-size: 20px;
+            margin-top: 0;
+        }
+
+        .math-display {
+            text-align: center;
+            margin: 15px 0;
+            direction: ltr;
+            font-size: 1.1em;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 25px;
+            margin-bottom: 5px;
+        }
+
+        .subsection-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .centered-label {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .footer-banner {
+            background-color: #dbeff7;
+            border: 2px solid #8bbcd6;
+            border-radius: 15px;
+            padding: 5px 20px;
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .footer-text {
+            white-space: nowrap;
+        }
+
+        .footer-center {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+        }
+
+        .footer-line {
+            height: 1px;
+            background-color: #333;
+            flex-grow: 1;
+            margin: 0 10px;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <!-- Header -->
+    <div class="header-banner">
+        المعادلات التفاضلية الجزئية وتطبيقاتها
+    </div>
+
+    <!-- Content -->
+    <p>
+        والتي تسمى بمعادلة لجندر التفاضلية حيث إن الحل العام للمعادلة أعلاه في الحالة التي فيها
+        <br>
+        تعطي بالعلاقة:
+    </p>
+
+    <div class="math-display">
+        $$ y = c_1 p_n (x) + c_2 q_n (x) $$
+    </div>
+
+    <p>
+        حيث \( p_n(x) \) كثيرات حدود تسمى كثيرات حدود لجندر، \( q_n(x) \) تسمى دوال لجندر من النوع الثاني و هي غير محددة عندما \( x = \pm 1 \).
+    </p>
+
+    <div class="section-title">4- الطرائق العددية:</div>
+    <p>
+        تتم في هذه الطريقة عمليه تحويل للمعادلة التفاضلية الجزئية إلى مجموعه من المعادلات الفرقيه التي يمكن حلها بعمليات حسابيه متكررة بواسطة الحاسبة الالكترونية ومنها .
+    </p>
+
+    <div class="subsection-title">طريقة العناصر المنتهية:</div>
+    <p>
+        وهي طريقة تحليل عددي لايجاد الحلول التقريبية للمعادلات التفاضلية الجزئية، بالاضافة الى الحلول التكاملية ويعتمد الحل على الغاء المعادلات التفاضلية الجزئية نهائيا او تقربي المعادلات التفاضلية الجزئية الى معادلات تفاضلية عادية والتي يمكن حلها باستخدام عدة طرق كطريقة اويلر او رونكه كوتا.
+    </p>
+
+    <div class="section-title">5- المعادلات التكاملية:</div>
+    <p>
+        حيث تحول المعادلة الجزئية المطلوبة إلى معادله تفاضلية تكاملية تم تحل المعادلة التكاملية بطريقه مختلفة ومن انواع المعادلات التكاملية:
+    </p>
+
+    <div class="centered-label">1 – معادله فريدهولم التكامليه</div>
+    <div class="math-display">
+        $$ u(x) = f(x) + \lambda \int_{a}^{b} k(x \text{،} t) u(t) dt $$
+    </div>
+
+    <div style="text-align: right; margin-right: 60px; font-size: 20px;">حيث</div>
+    
+    <div class="math-display" style="margin-top: 0;">
+        $$ t \le b \text{ ، } a \le x $$
+    </div>
+    
+    <div class="centered-label" style="margin-top: 0;">
+        a ، b ثوابت
+    </div>
+
+    <div class="centered-label" style="margin-top: 20px;">2 – معادلة فولتيرا التكاملية</div>
+    <div class="math-display">
+        $$ u(x) = f(x) + \lambda \int_{a}^{x} k(x \text{،} t) u(t) dt $$
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-banner">
+        <div class="footer-text">- مجلة المنتدى الجامعي</div>
+        <div class="footer-center">
+            <div class="footer-line"></div>
+            <span>139</span>
+            <div class="footer-line"></div>
+        </div>
+        <div class="footer-text">العدد (22) سبتمبر 2018-</div>
+    </div>
+</div>
+
+</body>
+</html>
